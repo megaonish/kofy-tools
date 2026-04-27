@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Form — Kofy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F3EE;
+    --parchment: #EDE7DC;
+    --espresso: #1C1208;
+    --roast: #3D2B10;
+    --caramel: #C8924A;
+    --caramel-light: #F0DFC4;
+    --muted: #7A6A55;
+    --border: rgba(61, 43, 16, 0.12);
+    --border-focus: #C8924A;
+    --success-bg: #EAF3DE;
+    --success-text: #3B6D11;
+    --error-bg: #FCEBEB;
+    --error-text: #A32D2D;
+    --radius: 10px;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--espresso);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 3rem 1rem 4rem;
+  }
+
+  .card {
+    background: #fff;
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 3rem 3rem 2.5rem;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 2px 24px rgba(61, 43, 16, 0.06);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2rem;
+  }
+
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--espresso);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand-mark span {
+    font-family: var(--font-display);
+    color: var(--caramel);
+    font-size: 15px;
+    line-height: 1;
+    margin-top: 1px;
+  }
+
+  .brand-name {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .divider {
+    height: 0.5px;
+    background: var(--border);
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--espresso);
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .field {
+    margin-bottom: 1.25rem;
+  }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea,
+  select {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--espresso);
+    background: var(--cream);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder,
+  textarea::placeholder { color: var(--muted); opacity: 0.6; }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--border-focus);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(200, 146, 74, 0.12);
+  }
+
+  textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A6A55' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: var(--espresso);
+    border: none;
+    border-radius: var(--radius);
+    padding: 13px 20px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .submit-btn:hover { background: var(--roast); }
+  .submit-btn:active { transform: scale(0.99); }
+  .submit-btn:disabled {
+    background: var(--muted);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .notice {
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 1rem;
+    display: none;
+  }
+
+  .notice.success {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border: 0.5px solid rgba(59, 109, 17, 0.2);
+  }
+
+  .notice.error {
+    background: var(--error-bg);
+    color: var(--error-text);
+    border: 0.5px solid rgba(163, 45, 45, 0.2);
+  }
+
+  .config-warning {
+    background: #FAEEDA;
+    border: 0.5px solid rgba(186, 117, 23, 0.25);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #633806;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    display: none;
+  }
+
+  .config-warning strong { font-weight: 500; }
+
+  .footer {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 0.5px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 2rem 1.5rem; }
+    .row-2 { grid-template-columns: 1fr; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="brand">
+    <div class="brand-mark"><span>K</span></div>
+    <span class="brand-name">Kofy Internal</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ⚠️ CONFIG — edit these two values -->
+  <script>
+    const PROXY_URL    = "https://kofy-notion-proxy.megaonish.workers.dev/";
+    const DATABASE_ID  = "34f9b62600a080239fa2de1382025e4b";
+  </script>
+  <!-- end config -->
+
+  <div class="config-warning" id="configWarning">
+    <strong>Setup needed —</strong> open this file in a text editor and replace <code>PROXY_URL</code> and <code>DATABASE_ID</code> at the top of the script block before deploying.
+  </div>
+
+  <h1>Team Submission</h1>
+  <p class="subtitle">A simple internal form. Responses go straight into Notion.</p>
+
+  <div class="field">
+    <label for="name">Full name</label>
+    <input type="text" id="name" placeholder="Kafay Lin" required>
+  </div>
+
+  <div class="row-2">
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@kofy.io">
+    </div>
+    <div class="field">
+      <label for="category">Category</label>
+      <select id="category">
+        <option value="">— select —</option>
+        <option value="Operations">Operations</option>
+        <option value="Content">Content</option>
+        <option value="Roasting">Roasting</option>
+        <option value="Sales">Sales</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="note">Note or update</label>
+    <textarea id="note" placeholder="What do you want the team to know?"></textarea>
+  </div>
+
+  <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+    <div class="spinner" id="spinner"></div>
+    <span id="btnText">Send to Notion</span>
+  </button>
+
+  <div class="notice" id="notice"></div>
+
+  <div class="footer">
+    Powered by Notion API · Kofy.io team workspace
+  </div>
+
+</div>
+
+<script>
+  (function checkConfig() {
+    if (PROXY_URL.includes("YOUR-WORKER") || DATABASE_ID.includes("YOUR-32-CHAR")) {
+      document.getElementById("configWarning").style.display = "block";
+    }
+  })();
+
+  async function submitForm() {
+    const name     = document.getElementById("name").value.trim();
+    const email    = document.getElementById("email").value.trim();
+    const category = document.getElementById("category").value;
+    const note     = document.getElementById("note").value.trim();
+    const btn      = document.getElementById("submitBtn");
+    const spinner  = document.getElementById("spinner");
+    const btnText  = document.getElementById("btnText");
+    const notice   = document.getElementById("notice");
+
+    notice.style.display = "none";
+    notice.className = "notice";
+
+    if (!name) return showNotice("error", "Name is required.");
+
+    btn.disabled = true;
+    spinner.style.display = "block";
+    btnText.textContent = "Sending…";
+
+    const payload = {
+      parent: { database_id: DATABASE_ID },
+      properties: {
+        "Name": {
+          title: [{ text: { content: name } }]
+        },
+        "Email": {
+          email: email || null
+        },
+        "Category": {
+          select: category ? { name: category } : null
+        },
+        "Note": {
+          rich_text: [{ text: { content: note } }]
+        },
+        "Submitted": {
+          date: { start: new Date().toISOString() }
+        }
+      }
+    };
+
+    try {
+      const res = await fetch(`${https://kofy-notion-proxy.megaonish.workers.dev/}/pages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.object === "page") {
+        showNotice("success", "Logged to Notion. Thanks, " + name.split(" ")[0] + ".");
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("category").value = "";
+        document.getElementById("note").value = "";
+      } else {
+        const msg = data.message || "Notion returned an unexpected response.";
+        showNotice("error", "Error: " + msg);
+      }
+    } catch (err) {
+      showNotice("error", "Could not reach the proxy. Check PROXY_URL or your network.");
+    }
+
+    btn.disabled = false;
+    spinner.style.display = "none";
+    btnText.textContent = "Send to Notion";
+  }
+
+  function showNotice(type, msg) {
+    const el = document.getElementById("notice");
+    el.textContent = msg;
+    el.className = "notice " + type;
+    el.style.display = "block";
+  }
+</script>
+
+</body>
+</html>
